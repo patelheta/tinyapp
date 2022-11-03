@@ -18,6 +18,18 @@ const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
+const users = {
+  userRandomID: {
+    id: "userRandomID",
+    email: "user@example.com",
+    password: "purple-monkey-dinosaur",
+  },
+  user2RandomID: {
+    id: "user2RandomID",
+    email: "user2@example.com",
+    password: "dishwasher-funk",
+  },
+};
 
 app.post("/urls", (req, res) => {
   console.log(req.body); // Log the POST request body to the console
@@ -39,9 +51,29 @@ app.post("/urls/:id", (req, res) => {
 app.get("/register", (req, res) => {
   res.render("user_register");
 });
-
+const getUserByEmail = function(email) {
+  for (let key in users) {
+    if (users[key]["email"] === email) {
+      return true;
+    }
+  }
+  return false;
+};
 app.post("/register", (req, res) => {
-  res.cookie('username', req.body.userName);
+  console.log(req.body); // Log the POST request body to the console
+  if (!req.body.email && !req.body.password) {
+    return res.status(400).send("Invalid Input");
+  }
+  if (getUserByEmail(req.body.email)) {
+    return res.status(400).send("Email already exist");
+  }
+  let id = generateRandomString();
+  users[id] = {
+    id: id,
+    email: req.body.email,
+    password: req.body.password,
+  };
+  res.cookie('user_id', id);
   res.redirect("/urls");
 });
 
@@ -61,7 +93,8 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls/:id", (req, res) => {
-  const templateVars = { id: req.params.id, longURL: urlDatabase[req.params.id] };
+  let userId = req.cookies["user_id"];
+  const templateVars = { user: users[userId], id: req.params.id, longURL: urlDatabase[req.params.id] };
   res.render("urls_show", templateVars);
 });
 
@@ -71,7 +104,8 @@ app.get("/u/:id", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  const templateVars = { username: req.cookies["username"], urls: urlDatabase };
+  let userId = req.cookies["user_id"];
+  const templateVars = { user: users[userId], urls: urlDatabase };
   res.render("urls_index", templateVars);
 });
 
