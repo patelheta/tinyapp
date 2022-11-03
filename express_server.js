@@ -48,9 +48,12 @@ app.post("/urls/:id", (req, res) => {
   res.redirect("/urls");
 });
 
+
+///register---
 app.get("/register", (req, res) => {
   res.render("user_register");
 });
+
 const getUserByEmail = function(email) {
   for (let key in users) {
     if (users[key]["email"] === email) {
@@ -77,10 +80,18 @@ app.post("/register", (req, res) => {
   res.redirect("/urls");
 });
 
+//login---
+app.get("/login", (req, res) => {
+  res.render("user_login");
+});
+const userlogin = function(email, password) {
+
+};
+
 app.post("/login", (req, res) => {
-  res.cookie('username', req.body.userName);
   res.redirect("/urls");
 });
+
 app.post("/logout", (req, res) => {
   res.clearCookie('username');
   res.redirect("/urls");
