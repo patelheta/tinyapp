@@ -51,7 +51,8 @@ app.post("/urls/:id", (req, res) => {
 
 ///register---
 app.get("/register", (req, res) => {
-  res.render("user_register");
+  const templateVars = { user: undefined };
+  res.render("user_register", templateVars);
 });
 
 const getUserByEmail = function(email) {
@@ -82,19 +83,33 @@ app.post("/register", (req, res) => {
 
 //login---
 app.get("/login", (req, res) => {
-  res.render("user_login");
+  const templateVars = { user: undefined };
+  res.render("user_login", templateVars);
 });
-const userlogin = function(email, password) {
-
+const getUserLogin = function(email, password) {
+  for (let key in users) {
+    if (users[key]["email"] === email && users[key]["password"] === password) {
+      return users[key];
+    }
+  }
+  return null;
 };
 
 app.post("/login", (req, res) => {
+  if (!getUserByEmail(req.body.email)) {
+    return res.status(403).send("Email Address Not Found");
+  }
+  let userEmailPass = getUserLogin(req.body.email, req.body.password);
+  if (!userEmailPass) {
+    return res.status(403).send("Invalid Password!");
+  }
+  res.cookie('user_id', userEmailPass.id);
   res.redirect("/urls");
 });
 
 app.post("/logout", (req, res) => {
-  res.clearCookie('username');
-  res.redirect("/urls");
+  res.clearCookie('user_id');
+  res.redirect("/login");
 });
 
 

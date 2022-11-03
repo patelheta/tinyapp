@@ -19,6 +19,8 @@
   </head>
 
   <body>
+    <%- include('partials/_header') %>
+
     <main style="margin: 1em">
       <h3>Login</h3>
       <form action="/login" method="POST">
@@ -44,7 +46,7 @@
             style="width: 300px; margin: 1em"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </main>
     <!-- Bootstrap JS -->
