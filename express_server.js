@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require('cookie-parser');
+const bcrypt = require("bcryptjs");
 
 const app = express();
 const PORT = 8080; // default port 8080
@@ -19,13 +20,7 @@ const urlDatabase = {
   },
 };
 
-const users = {
-  userRandomID: {
-    id: "aJ48lW",
-    email: "test@user.com",
-    password: "123",
-  }
-};
+const users = {};
 
 const generateRandomString = function() {
   return Math.random().toString(36).substring(2, 7);
@@ -51,7 +46,7 @@ const getUserById = function(id) {
 
 const getUserLogin = function(email, password) {
   for (let key in users) {
-    if (users[key]["email"] === email && users[key]["password"] === password) {
+    if (users[key]["email"] === email && bcrypt.compareSync(password, users[key]["password"])) {
       return users[key];
     }
   }
@@ -72,7 +67,7 @@ const urlsForUser = function(id) {
 
 app.get("/urls", (req, res) => {
   let userId = req.cookies["user_id"];
-  if (!userId) {
+  if (!getUserById(!userId)) {
     return res.send(`<html><body>
     <div style="text-align: center; font-size: x-large;
     ">
@@ -238,11 +233,14 @@ app.post("/register", (req, res) => {
     return res.status(400).send("Email already exist");
   }
   let id = generateRandomString();
+  const password = req.body.password; // found in the req.body object
+  const hashedPassword = bcrypt.hashSync(password, 10);
   users[id] = {
     id: id,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
   };
+  console.log(users);
   res.cookie('user_id', id);
   res.redirect("/urls");
 });
