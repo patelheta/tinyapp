@@ -4,11 +4,11 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product
 
-!["Registration Page screenshot "](https://github.com/patelheta/tinyapp/blob/main/docs/register.png?raw=true)
-!["create Url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/create_url.png?raw=true)
-!["Login Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/login.png?raw=true)
-!["Url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/url_page.png?raw=true)
-!["View shorten url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/view_shorten_url.png?raw=true)
+!["Registration Page screenshot "](https://github.com/patelheta/tinyapp/blob/main/docs/register.png)
+!["create Url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/create_url.png)
+!["Login Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/login.png)
+!["Url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/url_page.png)
+!["View shorten url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/view_shorten_url.png)
 
 
 ## Dependencies
