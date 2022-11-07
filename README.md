@@ -10,7 +10,6 @@ TinyApp is a full stack web application built with Node and Express that allows 
 !["Url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/url_page.png)
 !["View shorten url Page screenshot"](https://github.com/patelheta/tinyapp/blob/main/docs/view_shorten_url.png)
 
-
 ## Dependencies
 
 - Node.js
@@ -22,7 +21,7 @@ TinyApp is a full stack web application built with Node and Express that allows 
 ## Getting Started
 
 - Install all dependencies (using the `npm install` command).
-- Run the development web server using the `node express_server.js` command.
+- Run the development web server using the `npm start` command.
 - Go to `localhost:8080` on your browser.
 - Register as a new user.
 - Login as a existing user.

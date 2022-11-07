@@ -1,7 +1,11 @@
 const bcrypt = require("bcryptjs");
+const e = require("express");
 
 
 const getUserByEmail = function(email, database) {
+  if (!email) {
+    return false;
+  }
   for (let key in database) {
     if (database[key]["email"] === email) {
       return true;
@@ -15,6 +19,9 @@ const generateRandomString = function() {
 };
 
 const getUserById = function(id, users) {
+  if (!id) {
+    return false;
+  }
   for (let key in users) {
     if (users[key]["id"] === id) {
       return true;
@@ -24,6 +31,9 @@ const getUserById = function(id, users) {
 };
 
 const getUserLogin = function(email, password, users) {
+  if (!email && !password) {
+    return null;
+  }
   for (let key in users) {
     if (users[key]["email"] === email && bcrypt.compareSync(password, users[key]["password"])) {
       return users[key];
